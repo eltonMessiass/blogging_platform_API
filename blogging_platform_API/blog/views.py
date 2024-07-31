@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-# Create your views here.
+from  rest_framework.views import APIView
 
 
 def index(request):
     return HttpResponse("Hello")
+
+class ArticleView(request, data)
