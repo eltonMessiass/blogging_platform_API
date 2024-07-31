@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  blogging_api:
+    container_name: blogging_api
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./blogging_platform_API:/blogging_api
+      # - ./data/web/static:/data/web/static/
+      # - ./data/web/media:/data/web/media/
+    env_file:
+      - ./dotenv_files/.env
+    depends_on:
+      - blogging_db
+
+  blogging_db:
+    container_name: blogging_db
+    image: postgres:16-alpine3.19
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data/
+    env_file:
+      - ./dotenv_files/.env
