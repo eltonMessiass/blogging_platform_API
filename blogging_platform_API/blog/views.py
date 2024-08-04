@@ -19,6 +19,14 @@ class TagDetailView(APIView):
         except Tag.DoesNotExist:
             raise Http404
         
+    def delete(self, request, pk, format=None):
+        try:
+            tag = self.get_object(pk)
+            tag.delete()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        
     
 
 class TagView(APIView):
