@@ -6,6 +6,9 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = ['id', 'title', 'content', 'created_at']
 
+    def get_created_at(self, obj):
+        return obj.created_at.strftime('%d-%m-%Y')
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
