@@ -4,15 +4,11 @@ from  rest_framework.views import APIView
 from .models import Article, Tag
 from .serializers import ArticleSerializer, TagSerializer
 from rest_framework.response import Response
-from rest_framework import status, generics
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.renderers import JSONRenderer
-
-def index(request):
-    return HttpResponse("Hello")
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class TagDetailView(APIView):
-     
+    # permission_classes = [IsAuthenticated]
     def get_object(self, pk):
         try:
             return Tag.objects.get(pk=pk)
@@ -26,11 +22,10 @@ class TagDetailView(APIView):
             return Response(status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_204_NO_CONTENT)
-        
-    
+          
 
 class TagView(APIView):
-
+    # permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         tags = Tag.objects.all()
         serializer = TagSerializer(tags, many=True)
@@ -44,24 +39,8 @@ class TagView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
-# api_view(["get"])
-# def ArticlesFilter(request):
-#     tags = request.GET.getlist('tags')
-#     if not tags:
-#         return Response({"error":"No tags provided"}, status=status.HTTP_400_BAD_REQUEST)
-    
-#     articles = Article.objects.filter(tags__name__in=tags).distinct()
-#     serializer = ArticleSerializer(articles, many=True)
-#     return Response(serializer.data)
-
-# @api_view(['get'])
-# def ArticleFilter(request):
-
-
-
 class ArticleDetailView(APIView):
+    # permission_classes = [IsAuthenticated]
     def get_object(self, pk):
         try:
             return Article.objects.get(pk=pk)
@@ -90,8 +69,8 @@ class ArticleDetailView(APIView):
 
 
 
-
 class ArticleView(APIView):
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         articles = Article.objects.all()

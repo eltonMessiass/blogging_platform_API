@@ -10,7 +10,7 @@ COPY ./scripts /scripts
 WORKDIR /blogging_api
 
 EXPOSE 8000
-
+# RUN pip install --no-cache-dir setuptools
 RUN python -m venv /venv && \
     /venv/bin/pip install --upgrade pip && \
     /venv/bin/pip install -r /blogging_api/requirements.txt && \
@@ -29,6 +29,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     bash \
     netcat-openbsd
+
 
 ENV PATH="/scripts:/venv/bin:$PATH"
 
